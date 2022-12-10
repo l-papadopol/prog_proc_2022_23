@@ -52,7 +52,7 @@ int main(void)
 int verifica_collatz(void)
 {
   /* dichiarazione delle variabili locali alla funzione */
-  int n;                   /* input: numero naturale */
+  unsigned long int n;                   /* input: numero naturale */
   int esito_lettura,       /* lavoro: esito della scanf */
       acquisizione_errata; /* lavoro: esito complessivo dell’acquisizione_errata */
 
@@ -60,18 +60,17 @@ int verifica_collatz(void)
   do
   {
     printf("inserire un numero magggiore di 0: \n");
-    esito_lettura = scanf("%d",
+    esito_lettura = scanf("%lu",
                           &n);
-    acquisizione_errata = esito_lettura != 1 || n <= 0;
+    acquisizione_errata = esito_lettura != 1 || n <= 0 || n >= 4294967295;
     if (acquisizione_errata)
       printf("Valore non accettabile! \n");
-    while (getchar() != '\n')
-      ;
+    while (getchar() != '\n');
   } while (acquisizione_errata);
 
   /* stampare il numero se il suo valore è 1 */
   if (n == 1)
-    printf("%d", n);
+    printf("%lu", n);
 
   /* calcolare il valore del numero fino al raggiungimento del valore 1 */
   else
@@ -85,7 +84,7 @@ int verifica_collatz(void)
         n = (n * 3) + 1;
 
       /* stampare ogni numero ottenuto dai calcoli */
-      printf("\n%d",
+      printf("\n%lu",
              n);
     } while (n != 1);
   }
