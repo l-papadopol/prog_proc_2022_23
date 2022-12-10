@@ -1,10 +1,10 @@
 /****************************************************************/
-/* Esame PP-PPL-PE_PPro-PLPr-CPro 2022/2023			*/
-/*								*/
+/* Esame PP-PPL-PE_PPro-PLPr-CPro 2022/2023			                */
+/*								                                              */
 /* Programma per testare le congetture di Beal, Collatz, Cramèr */
-/*								*/
-/* Autori: Papadopol Lucian Ioan 	Matricola: 320648	*/
-/* 	   Spaccamiglio Luca			   329999	*/
+/*								                                              */
+/* Autori: Papadopol Lucian Ioan 	Matricola: 320648	            */
+/* 	       Spaccamiglio Luca			           329999	            */
 /****************************************************************/
 
 /*****************************/
@@ -59,9 +59,9 @@ int main(void)
 int verifica_collatz(void)
 {
   /* dichiarazione delle variabili locali alla funzione */
-  unsigned long int n;     /* input: numero naturale */
-  int esito_lettura,       /* lavoro: esito della scanf */
-      acquisizione_errata; /* lavoro: esito complessivo dell’acquisizione_errata */
+  unsigned long int n;           /* input: numero naturale */
+  int esito_lettura,             /* lavoro: esito della scanf */
+      acquisizione_errata;       /* lavoro: esito complessivo dell’acquisizione_errata */
 
   /* acquisire un numero 'n > 0' */
   do
@@ -72,8 +72,7 @@ int verifica_collatz(void)
     acquisizione_errata = esito_lettura != 1 || n <= 0 || n >= 4294967295;
     if (acquisizione_errata)
       printf("Valore non accettabile! \n");
-    while (getchar() != '\n')
-      ;
+    while (getchar() != '\n');
   } while (acquisizione_errata);
 
   /* stampare il numero se il suo valore è 1 */
@@ -106,8 +105,8 @@ int verifica_collatz(void)
 int verifica_primi(unsigned long int numero) /* input:  valore da verificare */
 {
   /* dichiarazione delle variabili locali alla funzione */
-  unsigned long int loop; /* lavoro: controllo ciclo */
-  int risultato = 1;      /* output: inizializzo a '1' */
+  unsigned long int loop;         /* lavoro: controllo ciclo */
+  int risultato = 1;              /* output: inizializzo a '1' */
 
   /* ciclo di verifica se un primo è effettivamente tale */
   for (loop = 2; loop < numero; loop++)
@@ -128,8 +127,8 @@ int fattori_primi(unsigned long int numero_a,
                   unsigned long int numero_c)
 {
   /* dichiarazione delle variabili locali alla funzione */
-  int loop = 2,     /* lavoro: controllo ciclo*/
-      primi_comuni; /* output: numero di numeri primi in comune ad numero_a, numero_b e numero_c */
+  int loop = 2,       /* lavoro: controllo ciclo*/
+      primi_comuni;   /* output: numero di numeri primi in comune ad numero_a, numero_b e numero_c */
 
   while (numero_a >= loop && numero_b >= loop && numero_c >= loop)
   {
