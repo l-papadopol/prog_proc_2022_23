@@ -27,12 +27,16 @@ int verifica_primi(unsigned long int);
 /* Definizione della funzione main */
 int main(void)
 {
+    /* dichiarazione delle variabili locali alla funzione */
+    int congettura;								/* input: selezione congettura */
+    
+    /* visualizzazione interfaccia menù di scelta */
     printf("Quale congettura vuoi considerare?\n" 
            "-Digita 1 per la congettura di Beal\n"
            "-Digita 2 per la congettura di Collatz\n"
            "-Digita 3 per la congettura di Cramer\n" );
-           
-    int congettura;
+    
+    /* acquisizione scelta */    
     scanf("%d", 
           &congettura);
     
@@ -40,7 +44,7 @@ int main(void)
     {
       case 2:
         verifica_collatz();
-        break;
+	break;
     }
 }
 
@@ -55,18 +59,20 @@ int verifica_collatz(void)
     /* acquisire un numero 'n > 0' */
     do
     {
-     printf("inserire un numero magggiore di 0: \n");
-     esito_lettura = scanf("%d", 
-                           &n); 
-     acquisizione_errata = esito_lettura != 1 || n <= 0;
-     if (acquisizione_errata)
-       printf("Valore non accettabile! \n");
-       while (getchar() != '\n');
+	    printf("inserire un numero magggiore di 0: \n");
+	    esito_lettura = scanf("%d",
+			    	   &n); 
+	    acquisizione_errata = esito_lettura != 1 || n <= 0;
+	    if (acquisizione_errata)
+		    printf("Valore non accettabile! \n");
+	    while (getchar() != '\n');
     }
     while (acquisizione_errata);
+    
     /* stampare il numero se il suo valore è 1 */
     if (n == 1)
-      printf("%d", n);
+        printf("%d", n);
+
     /* calcolare il valore del numero fino al raggiungimento del valore 1 */
     else 
     {
@@ -77,12 +83,14 @@ int verifica_collatz(void)
             n = n / 2;
           else 
             n = (n * 3) + 1;               
-          /* stampare ogni numero ottenuto dai calcoli */
+          
+	  /* stampare ogni numero ottenuto dai calcoli */
           printf("\n%d",
-                 n);
+                     n);
         }
         while(n != 1);
     }
+    return(0);
 }
 
 /* Definizione della funzione per la verifica se un numero è primo */
