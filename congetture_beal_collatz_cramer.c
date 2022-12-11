@@ -22,15 +22,12 @@ int verifica_beal(void);
 int verifica_collatz(void);
 
 int verifica_primi(unsigned long int);
-int fattori_primi(unsigned long int,
-                  unsigned long int,
-                  unsigned long int);
 
 /******************************/
 /* Definizione delle funzioni */
 /******************************/
 
-/* Definizione della funzione main */
+/* definizione della funzione main */
 int main(void)
 {
   /* dichiarazione delle variabili locali alla funzione */
@@ -41,7 +38,7 @@ int main(void)
   /* acquisizione scelta */
   do
   {
-    /* visualizzazione interfaccia menù di scelta */
+    /* visualizzazione banner/menù di scelta */
     printf(" PROGRAMMA DI TEST CONGETTURE DI BEAL - COLLATZ - CRAMÈR \n"
            "---------------------------------------------------------\n"
            "[1] Beal\n"
@@ -67,18 +64,15 @@ int main(void)
     verifica_collatz();
     break;
   }
-  return(0);
+  return (0);
 }
 
-/* Definizione della funzione per verificare la congettura di Beal */
+/* definizione della funzione per verificare la congettura di Beal */
 int verifica_beal(void)
 {
   int n[6],
       esito_lettura,       /* lavoro: esito della scanf */
       acquisizione_errata, /* lavoro: esito complessivo dell’acquisizione_errata */
-      pow_ax,
-      pow_by,
-      pow_cz,
       risultato = 0,
       loop_primi = 2,
       loop_input,
@@ -88,14 +82,12 @@ int verifica_beal(void)
                     'y',
                     'c',
                     'z'}; /* Input: array di caratteri */
-      
-
-  unsigned long int numero_a,
-                    numero_b,
-                    numero_c;
-
+  unsigned long int numero_ax,
+                    numero_by,
+                    numero_cz;
+/* acquisire un numero 'n >= 1' per a, b, c */
   for (loop_input = 0; loop_input < 6; loop_input++)
-  { /* acquisire un numero 'n >= 1' per a, b, c */
+  { 
     /* acquisire un numero 'n >= 3' per x, y, z */
     do
     {
@@ -119,34 +111,31 @@ int verifica_beal(void)
     } while (acquisizione_errata);
   }
 
-  pow_ax = (int) pow(n[0], n[3]);
-  pow_by = (int) pow(n[4], n[1]);
-  pow_cz = (int) pow(n[2], n[5]);
+  numero_ax = (int)pow(n[0], n[3]);
+  numero_by = (int)pow(n[4], n[1]);
+  numero_cz = (int)pow(n[2], n[5]);
 
-  if (pow_ax + pow_by == pow_cz)
+  if (numero_ax + numero_by == numero_cz)
   {
     printf("Congettura verificata");
   }
   else
   {
-    numero_a=pow_ax;
-    numero_b=pow_by;
-    numero_c=pow_cz;
-
-    while (numero_a >= loop_primi && numero_b >= loop_primi && numero_c >= loop_primi)
+    while (numero_ax >= loop_primi && numero_by >= loop_primi && numero_cz >= loop_primi)
     {
-        if (numero_a % loop_primi == 0 && numero_b % loop_primi == 0 && numero_c % loop_primi == 0)
-        {
-            numero_a /= loop_primi;
-            numero_b /= loop_primi;
-            numero_c /= loop_primi;
-            risultato++;
-        }
-        else
-            loop_primi++;
+      if (numero_ax % loop_primi == 0 && numero_by % loop_primi == 0 && numero_cz % loop_primi == 0)
+      {
+        numero_ax /= loop_primi;
+        numero_by /= loop_primi;
+        numero_cz /= loop_primi;
+        risultato++;
+      }
+      else
+        loop_primi++;
     }
     printf("Congettura non verificata\n"
-            "Vi sono %d numeri primi in comune tra %d, %d e %d\n", risultato, pow_ax, pow_by, pow_cz);
+           "Vi sono %d numeri primi in comune\n",
+           risultato);
   }
   return (0);
 }
@@ -168,7 +157,8 @@ int verifica_collatz(void)
     acquisizione_errata = esito_lettura != 1 || n <= 0 || n >= 4294967295;
     if (acquisizione_errata)
       printf("Valore non accettabile! \n");
-    while (getchar() != '\n');
+    while (getchar() != '\n')
+      ;
   } while (acquisizione_errata);
 
   /* stampare il numero se il suo valore è 1 */
@@ -215,5 +205,3 @@ int verifica_primi(unsigned long int numero) /* input:  valore da verificare */
 
   return risultato; /* restituisco il risultato della verifica */
 }
-
-
