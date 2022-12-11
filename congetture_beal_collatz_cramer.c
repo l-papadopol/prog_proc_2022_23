@@ -4,7 +4,7 @@
 /* Programma per testare le congetture di Beal, Collatz, Cramèr */
 /*								                                              */
 /* Autori: Papadopol Lucian Ioan 	Matricola: 320648	            */
-/* 	       Spaccamiglio Luca			           329999	            */
+/* 	       Spaccamiglio Luca			       329999	                */
 /****************************************************************/
 
 /*****************************/
@@ -12,12 +12,15 @@
 /*************************** */
 
 #include <stdio.h>
+#include <math.h>
 
 /********************************/
 /* Dichiarazione delle funzioni */
 /****************************** */
 
+int verifica_beal(void);
 int verifica_collatz(void);
+
 int verifica_primi(unsigned long int);
 int fattori_primi(unsigned long int,
                   unsigned long int,
@@ -31,37 +34,130 @@ int fattori_primi(unsigned long int,
 int main(void)
 {
   /* dichiarazione delle variabili locali alla funzione */
-  int congettura; /* input: selezione congettura */
-
-  /* visualizzazione interfaccia menù di scelta */
-  printf(" PROGRAMMA DI TEST CONGETTURE DI BEAL - COLLATZ - CRAMÈR \n"
-         "---------------------------------------------------------\n"
-         "[1] Beal\n"
-         "[2] Collatz\n"
-         "[3] Cramèr\n"
-         "----------------------------------------------------------\n"
-         "Digita il numero relativo alla tua scelta e premi invio. \n"
-         );
+  int congettura;          /* input: selezione congettura */
+  int esito_lettura,       /* lavoro: esito della scanf */
+      acquisizione_errata; /* lavoro: esito complessivo dell’acquisizione_errata */
 
   /* acquisizione scelta */
-  scanf("%d",
-        &congettura);
+  do
+  {
+    /* visualizzazione interfaccia menù di scelta */
+    printf(" PROGRAMMA DI TEST CONGETTURE DI BEAL - COLLATZ - CRAMÈR \n"
+           "---------------------------------------------------------\n"
+           "[1] Beal\n"
+           "[2] Collatz\n"
+           "[3] Cramèr\n"
+           "----------------------------------------------------------\n"
+           "Digita il numero relativo alla tua scelta e premi invio. \n");
+
+    esito_lettura = scanf("%d",
+                          &congettura);
+    acquisizione_errata = esito_lettura != 1 || congettura > 3 || congettura <= 0;
+    if (acquisizione_errata)
+      printf("Valore non accettabile! \n \n");
+    while (getchar() != '\n');
+  } while (acquisizione_errata);
 
   switch (congettura)
   {
+  case 1:
+    verifica_beal();
+    break;
   case 2:
     verifica_collatz();
     break;
   }
+  return(0);
+}
+
+/* Definizione della funzione per verificare la congettura di Beal */
+int verifica_beal(void)
+{
+  int n[6],
+      esito_lettura,       /* lavoro: esito della scanf */
+      acquisizione_errata, /* lavoro: esito complessivo dell’acquisizione_errata */
+      pow_ax,
+      pow_by,
+      pow_cz,
+      risultato = 0,
+      loop_primi = 2,
+      loop_input,
+      lettere[6] = {'a',
+                    'x',
+                    'b',
+                    'y',
+                    'c',
+                    'z'}; /* Input: array di caratteri */
+      
+
+  unsigned long int numero_a,
+                    numero_b,
+                    numero_c;
+
+  for (loop_input = 0; loop_input < 6; loop_input++)
+  { /* acquisire un numero 'n >= 1' per a, b, c */
+    /* acquisire un numero 'n >= 3' per x, y, z */
+    do
+    {
+      if (loop_input == 0 || loop_input == 2 || loop_input == 4)
+        printf("Digita un valore %c >= 1: ",
+               lettere[loop_input]);
+      else
+        printf("Digita l'esponente %c >= 3: ",
+               lettere[loop_input]);
+
+      esito_lettura = scanf("%d",
+                            &n[loop_input]);
+
+      if (loop_input == 0 || loop_input == 2 || loop_input == 4)
+        acquisizione_errata = esito_lettura != 1 || n[loop_input] < 1;
+      else
+        acquisizione_errata = esito_lettura != 1 || n[loop_input] < 3;
+      if (acquisizione_errata)
+        printf("Valore non accettabile! \n");
+      while (getchar() != '\n');
+    } while (acquisizione_errata);
+  }
+
+  pow_ax = (int) pow(n[0], n[3]);
+  pow_by = (int) pow(n[4], n[1]);
+  pow_cz = (int) pow(n[2], n[5]);
+
+  if (pow_ax + pow_by == pow_cz)
+  {
+    printf("Congettura verificata");
+  }
+  else
+  {
+    numero_a=pow_ax;
+    numero_b=pow_by;
+    numero_c=pow_cz;
+
+    while (numero_a >= loop_primi && numero_b >= loop_primi && numero_c >= loop_primi)
+    {
+        if (numero_a % loop_primi == 0 && numero_b % loop_primi == 0 && numero_c % loop_primi == 0)
+        {
+            numero_a /= loop_primi;
+            numero_b /= loop_primi;
+            numero_c /= loop_primi;
+            risultato++;
+        }
+        else
+            loop_primi++;
+    }
+    printf("Congettura non verificata\n"
+            "Vi sono %d numeri primi in comune tra %d, %d e %d\n", risultato, pow_ax, pow_by, pow_cz);
+  }
+  return (0);
 }
 
 /* Definizione della funzione per verificare la congettura di Collatz */
 int verifica_collatz(void)
 {
   /* dichiarazione delle variabili locali alla funzione */
-  unsigned long int n;           /* input: numero naturale */
-  int esito_lettura,             /* lavoro: esito della scanf */
-      acquisizione_errata;       /* lavoro: esito complessivo dell’acquisizione_errata */
+  unsigned long int n;     /* Input: numero naturale */
+  int esito_lettura,       /* lavoro: esito della scanf */
+      acquisizione_errata; /* lavoro: esito complessivo dell’acquisizione_errata */
 
   /* acquisire un numero 'n > 0' */
   do
@@ -105,8 +201,8 @@ int verifica_collatz(void)
 int verifica_primi(unsigned long int numero) /* input:  valore da verificare */
 {
   /* dichiarazione delle variabili locali alla funzione */
-  unsigned long int loop;         /* lavoro: controllo ciclo */
-  int risultato = 1;              /* output: inizializzo a '1' */
+  unsigned long int loop; /* lavoro: controllo ciclo */
+  int risultato = 1;      /* output: inizializzo a '1' */
 
   /* ciclo di verifica se un primo è effettivamente tale */
   for (loop = 2; loop < numero; loop++)
@@ -117,30 +213,7 @@ int verifica_primi(unsigned long int numero) /* input:  valore da verificare */
     }
   }
 
-  return risultato; /*restituisco il risultato della verifica */
+  return risultato; /* restituisco il risultato della verifica */
 }
 
-/* Definizione della funzione per verificare quanti fattori primi vi sono in comune in una tripla */
-/* di numeri naturali positivi composti >2 */
-int fattori_primi(unsigned long int numero_a,
-                  unsigned long int numero_b,
-                  unsigned long int numero_c)
-{
-  /* dichiarazione delle variabili locali alla funzione */
-  int loop = 2,       /* lavoro: controllo ciclo*/
-      primi_comuni;   /* output: numero di numeri primi in comune ad numero_a, numero_b e numero_c */
 
-  while (numero_a >= loop && numero_b >= loop && numero_c >= loop)
-  {
-    if (numero_a % loop == 0 && numero_b % loop == 0 && numero_c % loop == 0)
-    {
-      numero_a /= loop;
-      numero_b /= loop;
-      numero_c /= loop;
-      primi_comuni++;
-    }
-    else
-      loop++;
-  }
-  return (primi_comuni);
-}
