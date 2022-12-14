@@ -206,12 +206,14 @@ int verifica_nprimo(unsigned long int numero_in) /* input:  valore da verificare
 {
   /* dichiarazione delle variabili locali alla funzione */
   unsigned long int i;    /* lavoro: controllo ciclo */
-  int risultato = 1;      /* output: variabile risultato della verifica inizializzo a '1' ovvero 'è primo' */
+  int risultato = 1,      /* output: variabile risultato della verifica inizializzo a '1' ovvero 'è primo' */
+      sqrt_numero;        /* lavoro: radice quadrata del numero da verificare */
 
   /* ciclo di verifica se un primo è effettivamente tale */
-  for (i = 2; i < numero_in; i++)
+  sqrt_numero = sqrt(numero_in);  /* calcolo la radice quadrata del numero da verificare*/
+  for (i = 2; i <= sqrt_numero; i++)
   {
-    if ((numero_in % i) == 0)
+    if ((sqrt_numero % i) == 0)
     {
       risultato = 0;  /* non è primo*/
     }
