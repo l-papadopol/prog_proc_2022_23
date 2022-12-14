@@ -1,10 +1,10 @@
 /****************************************************************/
-/* Esame PP-PPL-PE_PPro-PLPr-CPro 2022/2023			                */
-/*								                                              */
+/* Esame PP-PPL-PE_PPro-PLPr-CPro 2022/2023		                  */
+/*							                                                */
 /* Programma per testare le congetture di Beal, Collatz, Cramèr */
-/*								                                              */
+/*							                                                */
 /* Autori: Papadopol Lucian Ioan 	Matricola: 320648	            */
-/* 	       Spaccamiglio Luca			           329999             */
+/* 	       Spaccamiglio Luca		             322270             */
 /****************************************************************/
 
 /*****************************/
@@ -32,7 +32,8 @@ int main(void)
 {
   /* dichiarazione delle variabili locali alla funzione */
   int scelta_congettura,        /* input: selezione congettura */
-      esito_acquisizione;       /* lavoro: esito della scanf */
+      esito_acquisizione,       /* lavoro: esito della scanf */
+      acquisizione_errata;      /* lavoro: esito complessivo dell' acquisizione_errata */
 
   /* acquisizione scelta */
   do
@@ -49,11 +50,11 @@ int main(void)
     /* acquisizione scelta e validazione stretta*/
     esito_acquisizione = scanf("%d",
                           &scelta_congettura);
-    esito_acquisizione = esito_acquisizione != 1 || scelta_congettura > 3 || scelta_congettura <= 0;
-    if (esito_acquisizione)
+    acquisizione_errata = esito_acquisizione != 1 || scelta_congettura > 3 || scelta_congettura <= 0;
+    if (acquisizione_errata)
       printf("Valore non accettabile! \n \n");
     while (getchar() != '\n');
-  } while (esito_acquisizione);
+  } while (acquisizione_errata);
 
   /* struttura di selezione della congettura*/
   switch (scelta_congettura)
@@ -75,11 +76,12 @@ int main(void)
 int congettura_beal(void)
 {
   int parametro_equazione[5],  /* array parametri della equazione*/
-      esito_lettura,          /* lavoro: esito della scanf */
+      esito_lettura,           /* lavoro: esito della scanf */
+      acquisizione_errata,     /* lavoro: esito complessivo dell' acquisizione_errata */
       risultato = 0,
       loop_primi = 2,
       loop_input,
-      lettere[6] = {'a',      /* output: array messaggi per input variabili corrispondenti */
+      lettere[6] = {'a',       /* output: array messaggi per input variabili corrispondenti */
                     'b',
                     'c',
                     'x',
@@ -108,13 +110,13 @@ printf("------------------------\n"
       esito_lettura = scanf("%d",
                             &parametro_equazione[loop_input]);
       if (loop_input == 0 || loop_input <= 2)
-        esito_lettura = esito_lettura != 1 || parametro_equazione[loop_input] < 1;
+        acquisizione_errata = esito_lettura != 1 || parametro_equazione[loop_input] < 1;
       else
-        esito_lettura = esito_lettura != 1 || parametro_equazione[loop_input] < 3;
-      if (esito_lettura)
+        acquisizione_errata = esito_lettura != 1 || parametro_equazione[loop_input] < 3;
+      if (acquisizione_errata)
         printf("Valore non accettabile! \n");
       while (getchar() != '\n');
-    } while (esito_lettura);
+    } while (acquisizione_errata);
   }
 
   /* esegui i calcoli */
@@ -122,16 +124,6 @@ printf("------------------------\n"
   b_esponentey = pow(parametro_equazione[1], parametro_equazione[4]);
   c_esponentez = pow(parametro_equazione[2], parametro_equazione[5]);
 
-  if (a_esponentex + b_esponentey == c_esponentez)
-    printf("Equazione verificata\n");
-  else
-  {
-    /* avviso l'utente dell'esito */
-    printf("Equazione non verificata per i parametri inseriti.\n"
-           "Vi sono %d numeri primi in comune\n",
-            risultato);
-  }
-  
   /* calcolo quanti primi in comune vi sono tra a, b, c*/
   while (parametro_equazione[0] >= loop_primi && parametro_equazione[1] >= loop_primi && parametro_equazione[2] >= loop_primi)
     {
@@ -145,6 +137,22 @@ printf("------------------------\n"
       else
         loop_primi++;
     }
+
+  if (a_esponentex + b_esponentey == c_esponentez)
+  {
+    printf("Equazione verificata\n");
+    printf("Equazione  verificata per i parametri inseriti.\n"
+           "Vi sono %d numeri primi in comune\n",
+            risultato);
+  }
+  else
+  {
+    /* avviso l'utente dell'esito */
+    printf("Equazione non verificata per i parametri inseriti.\n"
+           "Vi sono %d numeri primi in comune\n",
+            risultato);
+  }
+  
   return (0);
 }
 
@@ -153,27 +161,23 @@ int congettura_collatz(void)
 {
   /* dichiarazione delle variabili locali alla funzione */
   unsigned long int numero_in;        /* input: numero naturale scelto dall'utente*/
-  int esito_lettura;                  /* lavoro: esito della scanf */
-
+  int esito_lettura,                  /* lavoro: esito della scanf */
+      acquisizione_errata;            /* lavoro: esito complessivo dell' acquisizione_errata */
+  
   /* acquisizione numero da testare e validazione stretta*/
   do
   {
     printf("Inserire un numero 'n' intero > 0: \n");
     esito_lettura = scanf("%lu",
                           &numero_in);
-    esito_lettura = esito_lettura != 1 || numero_in <= 0;
-    if (esito_lettura)
+    acquisizione_errata = esito_lettura != 1 || numero_in <= 0;
+    if (acquisizione_errata)
       printf("Valore non accettabile! \n");
     while (getchar() != '\n');
-  } while (esito_lettura);
-
-  /* stampare il numero se il suo valore è 1 */
-  if (numero_in == 1)
-    printf("%lu", numero_in);
-
+  } while (acquisizione_errata);
+  
   /* calcolare il valore del numero fino al raggiungimento del valore 1 */
-  else
-  {
+ 
     printf("Numeri generati:\n"     /* Banner evocativo con separatore */
            "----------------\n");
     do
@@ -190,7 +194,7 @@ int congettura_collatz(void)
     /* avviso l'utente dell'esito */
     printf("\n"); /* vado a capo dalla lista dei numeri generati */
     printf("Ho raggiunto n == 1\n");
-  }
+    
   return (0);
 }
 
