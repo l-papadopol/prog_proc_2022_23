@@ -124,28 +124,29 @@ printf("------------------------\n"
 
   if (a_esponentex + b_esponentey == c_esponentez)
   {
-    printf("Equazione a^x + b^y = c^z verificata");
+    printf("Equazione verificata\n");
   }
   else
   {
-    while (a_esponentex >= loop_primi && b_esponentey >= loop_primi && c_esponentez >= loop_primi)
+    /* avviso l'utente dell'esito */
+    printf("Equazione non verificata per i parametri inseriti.\n"
+           "Vi sono %d numeri primi in comune\n",
+            risultato);
+  }
+  
+  /* calcolo quanti primi in comune vi sono tra a, b, c*/
+  while (parametro_equazione[0] >= loop_primi && parametro_equazione[1] >= loop_primi && parametro_equazione[2] >= loop_primi)
     {
-      if (a_esponentex % loop_primi == 0 && b_esponentey % loop_primi == 0 && c_esponentez % loop_primi == 0)
+      if (parametro_equazione[0] % loop_primi == 0 && parametro_equazione[1] % loop_primi == 0 && parametro_equazione[2] % loop_primi == 0)
       {
-        a_esponentex /= loop_primi;
-        b_esponentey /= loop_primi;
-        c_esponentez /= loop_primi;
+        parametro_equazione[0] /= loop_primi;
+        parametro_equazione[1] /= loop_primi;
+        parametro_equazione[2] /= loop_primi;
         risultato++;
       }
       else
         loop_primi++;
     }
-
-    /* avviso l'utente dell'esito */
-    printf("Equazione a^x + b^y = c^z non verificata per i parametri inseriti.\n"
-           "Vi sono %d numeri primi in comune\n",
-           risultato);
-  }
   return (0);
 }
 
