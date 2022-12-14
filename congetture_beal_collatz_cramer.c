@@ -123,9 +123,7 @@ printf("------------------------\n"
   c_esponentez = pow(parametro_equazione[2], parametro_equazione[5]);
 
   if (a_esponentex + b_esponentey == c_esponentez)
-  {
     printf("Equazione verificata\n");
-  }
   else
   {
     /* avviso l'utente dell'esito */
