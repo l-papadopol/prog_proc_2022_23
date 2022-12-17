@@ -13,6 +13,7 @@
 
 #include <stdio.h>
 #include <math.h>
+#include <errno.h>
 
 /********************************/
 /* Dichiarazione delle funzioni */
@@ -61,7 +62,7 @@ int main(void)
   {
   case 1:
     congettura_beal();
-    break;  
+    break;
   case 2:
     congettura_collatz();
     break;
@@ -82,7 +83,7 @@ int congettura_beal(void)
       esito_lettura,       /* lavoro: esito della scanf */
       acquisizione_errata, /* lavoro: esito complessivo dell' acquisizione_errata */
       i_primi = 2,         /* lavoro: indice ciclo calcolo fattori primi comuni */
-      i_parametri,                   /* lavoro: indice ciclo aquisizione parametri*/
+      i_parametri,         /* lavoro: indice ciclo aquisizione parametri*/
       n_fprimi = 0;        /* output: esito calcolo fattori primi comuni */
   char scelta[6] = {'a',   /* output: array messaggi per input variabili corrispondenti */
                     'b',
@@ -90,16 +91,16 @@ int congettura_beal(void)
                     'x',
                     'y',
                     'z'};
-  long double a_esponentex, /* lavoro: risultato potenza A^x */
-              b_esponentey, /* lavoro: risultato potenza B^y */
-              c_esponentez; /* lavoro: riusltato potenza C^z */
+  long double a_esponentex = 1, /* lavoro: risultato potenza A^x */
+      b_esponentey = 1,         /* lavoro: risultato potenza B^y */
+      c_esponentez = 1;         /* lavoro: riusltato potenza C^z */
 
   /* messaggio esplicativo dei parametri da inserire*/
   printf("Equazione A^x + B^y = C^z\n\n");
 
   /* acquisire parametri a,b,c,x,y,z e validazione stretta */
-  for (i_parametri = 0; 
-       i_parametri < 6; 
+  for (i_parametri = 0;
+       i_parametri < 6;
        i_parametri++)
   {
     do
@@ -118,24 +119,52 @@ int congettura_beal(void)
         acquisizione_errata = esito_lettura != 1 || par_equ[i_parametri] < 3;
       if (acquisizione_errata)
         printf("Valore non accettabile! \n");
+      else
+      {
+        if (esito_lettura == 1 && i_parametri == 3)
+        {
+          errno = 0; /* reset errno */
+          a_esponentex = pow(par_equ[0], par_equ[3]);
+          if (errno != 0)
+          {
+            printf("Potenza troppo elevata!\n");
+            acquisizione_errata = 1;
+          }
+        }
+        if (esito_lettura == 1 && i_parametri == 4)
+        {
+          errno = 0; /* reset errno */
+          b_esponentey = pow(par_equ[1], par_equ[4]);
+          if (errno != 0)
+          {
+            printf("Potenza troppo elevata!\n");
+            acquisizione_errata = 1;
+          }
+        }
+        if (esito_lettura == 1 && i_parametri == 5)
+        {
+          errno = 0; /* reset errno */
+          c_esponentez = pow(par_equ[2], par_equ[5]);
+          if (errno != 0)
+          {
+            printf("Potenza troppo elevata!\n");
+            acquisizione_errata = 1;
+          }
+        }
+      }
       while (getchar() != '\n')
         ;
     } while (acquisizione_errata);
   }
-
-  /* esegui il calcolo delle potenze */
-  a_esponentex = pow(par_equ[0], par_equ[3]);
-  b_esponentey = pow(par_equ[1], par_equ[4]);
-  c_esponentez = pow(par_equ[2], par_equ[5]);
 
   /* calcolo quanti primi in comune vi sono tra a, b, c*/
   while (par_equ[0] >= i_primi && par_equ[1] >= i_primi && par_equ[2] >= i_primi)
   {
     if (par_equ[0] % i_primi == 0 && par_equ[1] % i_primi == 0 && par_equ[2] % i_primi == 0)
     {
-      par_equ[0] = (int) par_equ[0] / i_primi;
-      par_equ[1] = (int) par_equ[1] / i_primi;
-      par_equ[2] = (int) par_equ[2] / i_primi;
+      par_equ[0] = (int)par_equ[0] / i_primi;
+      par_equ[1] = (int)par_equ[1] / i_primi;
+      par_equ[2] = (int)par_equ[2] / i_primi;
       n_fprimi++;
     }
     else
@@ -153,8 +182,7 @@ int congettura_beal(void)
   }
 
   /* indico all'utente quanti fattori primi in comune vi sono tra i parametri a,b,c */
-  printf("Vi sono %d fattori primi in comune tra quelli dei parametri A, B e C\n\n",
-         n_fprimi);
+  printf("Vi sono %d fattori primi in comune tra quelli dei parametri A, B e C\n\n", n_fprimi);
   return (0);
 }
 
@@ -184,7 +212,7 @@ int congettura_collatz(void)
   do
   {
     if (numero_in % 2 == 0)
-      numero_in = (int) numero_in / 2;
+      numero_in = (int)numero_in / 2;
     else
       numero_in = (numero_in * 3) + 1;
 
@@ -210,13 +238,13 @@ int congettura_cramer(void)
       b_esito = 0,         /* lavoro: conteggio numeri primi, ricerca primi tra due limiti */
       delta_np;            /* output: differenza tra i due numeri primi */
   double log_npnp,         /* output: logaritmo del quadrato del numero primo minore */
-         rapporto_np;      /* output: rapporto fra delta numeri primi e log quadrato np minore */
+      rapporto_np;         /* output: rapporto fra delta numeri primi e log quadrato np minore */
 
   printf("\nDigita un numero primo ≥ 11 e premere 'Invio'. \n"
          "Successivamente digitare un altro numero primo consecutivo al precedente e premere 'Invio'.\n\n");
 
   for (i_primi = 0;
-       i_primi < 2; 
+       i_primi < 2;
        i_primi++)
   {
     do
@@ -237,7 +265,7 @@ int congettura_cramer(void)
           printf("Non è un numero primo! \n");
         }
 
-        if (a_esito == 1 && i_primi == 1)
+        if (a_esito == 1 && i_primi == 1 && valori[1] > valori[0])
         {
           i_ricercanp = valori[0] + 1;
           do
@@ -248,13 +276,20 @@ int congettura_cramer(void)
 
           if (b_esito != 0)
           {
-            printf("Valori non accettabili, non sono primi consecutivi.\n"
-                   "Digitare il secondo numero primo consecutivo al primo digitato\n");
+            printf("Valore non accettabile, non è un numero primo consecutivo al primo.\n");
             b_esito = 0;
             acquisizione_errata = 1;
           }
         }
+
+        if (a_esito == 1 && i_primi == 1 && valori[1] < valori[0])
+        {
+          printf("Valore non accettabile, hai inserito due primi identici oppure il secondo più piccolo\n");
+          acquisizione_errata = 1;
+        }
       }
+      while (getchar() != '\n')
+        ;
     } while (acquisizione_errata);
   }
 
@@ -269,11 +304,11 @@ int congettura_cramer(void)
   printf("Rapporto tra la differenza dei due primi ed il quadrato del Logaritmo naturale del minore: %0.2lf\n\n", rapporto_np);
 
   /* indico all'utente se la congettura è verificata per i parametri inseriti */
-  if(rapporto_np <= 1)
+  if (rapporto_np <= 1)
     printf("La congettura è verificata per i parametri inseriti\n\n");
   else
-  printf("La congettura non è verificata per i parametri inseriti\n\n");
-  
+    printf("La congettura non è verificata per i parametri inseriti\n\n");
+
   return (0);
 }
 
@@ -281,8 +316,8 @@ int congettura_cramer(void)
 int verifica_nprimo(int numero_in) /* input:  valore da verificare */
 {
   /* dichiarazione delle variabili locali alla funzione */
-  int i,          /* lavoro: controllo ciclo */
-  risultato = 1;  /* output: variabile risultato della verifica inizializzo a '1' ovvero 'è primo' */
+  int i,             /* lavoro: controllo ciclo */
+      risultato = 1; /* output: variabile risultato della verifica inizializzo a '1' ovvero 'è primo' */
 
   /* ciclo di verifica se un primo è effettivamente tale */
   for (i = 2; i < numero_in; i++)
