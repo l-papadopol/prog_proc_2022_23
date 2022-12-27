@@ -50,7 +50,9 @@ int main(void)
     /* acquisizione scelta e validazione stretta*/
     esito_acquisizione = scanf("%d",
                                &scelta_congettura);
-    acquisizione_errata = esito_acquisizione != 1 || scelta_congettura > 4 || scelta_congettura <= 0;
+    acquisizione_errata = esito_acquisizione != 1 || 
+                          scelta_congettura > 4 || 
+                          scelta_congettura <= 0;
     if (acquisizione_errata)
       printf("Valore fuori range! \n");
     while (getchar() != '\n')
@@ -111,14 +113,17 @@ int congettura_beal(void)
       esito_lettura = scanf("%d",
                             &par_equ[i_parametri]);
       if (i_parametri == 0 || i_parametri <= 2)
-        acquisizione_errata = esito_lettura != 1 || par_equ[i_parametri] < 1;
+        acquisizione_errata = esito_lettura != 1 || 
+                              par_equ[i_parametri] < 1;
       else
-        acquisizione_errata = esito_lettura != 1 || par_equ[i_parametri] < 3;
+        acquisizione_errata = esito_lettura != 1 || 
+                              par_equ[i_parametri] < 3;
       if (acquisizione_errata)
         printf("Valore non accettabile! \n");
       else
       {
-        if (esito_lettura == 1 && i_parametri == 3)
+        if (esito_lettura == 1 && 
+            i_parametri == 3)
         {
           errno = 0; /* reset errno */
           a_esponentex = pow(par_equ[0], par_equ[3]);
@@ -128,7 +133,8 @@ int congettura_beal(void)
             acquisizione_errata = 1;
           }
         }
-        if (esito_lettura == 1 && i_parametri == 4)
+        if (esito_lettura == 1 && 
+            i_parametri == 4)
         {
           errno = 0; /* reset errno */
           b_esponentey = pow(par_equ[1], par_equ[4]);
@@ -138,7 +144,8 @@ int congettura_beal(void)
             acquisizione_errata = 1;
           }
         }
-        if (esito_lettura == 1 && i_parametri == 5)
+        if (esito_lettura == 1 && 
+            i_parametri == 5)
         {
           errno = 0; /* reset errno */
           c_esponentez = pow(par_equ[2], par_equ[5]);
@@ -154,9 +161,13 @@ int congettura_beal(void)
   }
 
   /* calcolo quanti primi vi sono in comune tra a, b, c*/
-  while (par_equ[0] >= i_primi && par_equ[1] >= i_primi && par_equ[2] >= i_primi)
+  while (par_equ[0] >= i_primi && 
+         par_equ[1] >= i_primi && 
+         par_equ[2] >= i_primi)
   {
-    if (par_equ[0] % i_primi == 0 && par_equ[1] % i_primi == 0 && par_equ[2] % i_primi == 0)
+    if (par_equ[0] % i_primi == 0 && 
+        par_equ[1] % i_primi == 0 && 
+        par_equ[2] % i_primi == 0)
     {
       par_equ[0] = (int)par_equ[0] / i_primi;
       par_equ[1] = (int)par_equ[1] / i_primi;
@@ -199,7 +210,9 @@ int congettura_collatz(void)
     printf("Digita un numero intero > 0: \n");
     esito_lettura = scanf("%d",
                           &numero_in);
-    acquisizione_errata = esito_lettura != 1 || numero_in <= 0 || numero_in > (INT_MAX / 3);
+    acquisizione_errata = esito_lettura != 1 || 
+                          numero_in <= 0 || 
+                          numero_in > (INT_MAX / 3);
     if (acquisizione_errata)
       printf("Valore fuori range! \n");
     while (getchar() != '\n');
@@ -210,7 +223,7 @@ int congettura_collatz(void)
   do
   {
     if (numero_in % 2 == 0)
-      numero_in = (int)numero_in / 2;
+      numero_in = numero_in / 2;
     else
       numero_in = (numero_in * 3) + 1;
 
@@ -231,14 +244,14 @@ int congettura_cramer(void)
       acquisizione_errata, /* lavoro: esito complessivo dell'acquisizione_errata */
       i_primi,             /* lavoro: indice acquisizione numeri primi */
       i_ricercanp,         /* lavoro: indice ricerca primi tra due estremi */
-      a_esito,             /* lavoro: esito verifica numero primo, primo ciclo di validazione input */
-      b_esito = 0,         /* lavoro: conteggio numeri primi, ricerca primi tra due limiti */
+      a_esito,             /* lavoro: esito verifica numero primo, ciclo di validazione input */
+      b_esito = 0,         /* lavoro: conteggio numeri primi */
       delta_np;            /* output: differenza tra i due numeri primi */
   double log_npnp,         /* output: logaritmo del quadrato del numero primo minore */
-      	 rapporto_np;      /* output: rapporto fra delta numeri primi e log quadrato np minore */
+      	 rapporto_np;      /* output: rapporto fra delta numeri primi e log quadrato np min */
 
   printf("\nDigita un numero primo ≥ 11 e premere 'Invio'. \n"
-         "Successivamente digita un altro numero primo consecutivo al precedente e premere 'Invio'.\n\n");
+         "Successivamente digita un altro numero primo consecutivo al precedente.\n\n");
 
   for (i_primi = 0;
        i_primi < 2;
@@ -248,7 +261,8 @@ int congettura_cramer(void)
     {
       esito_lettura = scanf("%d",
                             &valori[i_primi]);
-      acquisizione_errata = esito_lettura != 1 || valori[i_primi] < 11;
+      acquisizione_errata = esito_lettura != 1 || 
+                            valori[i_primi] < 11;
 
       if (acquisizione_errata)
         printf("Valore fuori range! \n");
@@ -262,7 +276,9 @@ int congettura_cramer(void)
           printf("Non è un numero primo! \n");
         }
 
-        if (a_esito == 1 && i_primi == 1 && valori[1] > valori[0])
+        if (a_esito == 1 && 
+            i_primi == 1 && 
+            valori[1] > valori[0])
         {
           i_ricercanp = valori[0] + 1;
           do
@@ -273,15 +289,17 @@ int congettura_cramer(void)
 
           if (b_esito != 0)
           {
-            printf("Valore non accettabile, non è un numero primo consecutivo al primo.\n");
+            printf("Non è un numero primo consecutivo al primo.\n");
             b_esito = 0;
             acquisizione_errata = 1;
           }
         }
 
-        if (a_esito == 1 && i_primi == 1 && (valori[1] < valori[0] || valori[1] == valori[0]))
+        if (a_esito == 1 && 
+            i_primi == 1 && 
+            (valori[1] < valori[0] || valori[1] == valori[0]))
         {
-          printf("Valore non accettabile, hai inserito due primi identici oppure il secondo più piccolo\n");
+          printf("Hai inserito due primi identici oppure il secondo più piccolo\n");
           acquisizione_errata = 1;
         }
       }
@@ -316,7 +334,7 @@ int verifica_nprimo(int numero_in) /* input:  valore da verificare */
       risultato = 1; /* output: variabile risultato della verifica */
 
   /* ciclo di verifica se un primo è effettivamente tale */
-  for (i = 2; i < numero_in; i++)
+  for (i = 2; i < (int)sqrt(numero_in); i++)
   {
     if ((numero_in % i) == 0)
     {
