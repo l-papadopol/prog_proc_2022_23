@@ -192,7 +192,7 @@ int congettura_beal(void)
   if (n_fprimi > 0)
 	  printf("Vi è almeno un fattore primo in comune fra A,B e C.\n");
   else
-	  printf("Non vi è alcun fattore primo fra A,B,C.\n");
+	  printf("Non vi è alcun fattore primo in comune fra A,B,C.\n");
   return (0);
 }
 
