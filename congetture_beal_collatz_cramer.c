@@ -14,6 +14,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <errno.h>
+#include <limits.h>
 
 /********************************/
 /* Dichiarazione delle funzioni */
@@ -188,9 +189,9 @@ int congettura_beal(void)
 int congettura_collatz(void)
 {
   /* dichiarazione delle variabili locali alla funzione */
-  int numero_in,           /*  input: numero naturale scelto dall'utente*/
-      esito_lettura,       /* lavoro: esito della scanf */
-      acquisizione_errata; /* lavoro: esito complessivo dell'acquisizione_errata */
+  int numero_in,              /*  input: numero naturale scelto dall'utente*/
+      esito_lettura,          /* lavoro: esito della scanf */
+      acquisizione_errata;    /* lavoro: esito complessivo dell'acquisizione_errata */
 
   /* acquisizione numero da testare e validazione stretta*/
   do
@@ -198,7 +199,7 @@ int congettura_collatz(void)
     printf("Digita un numero intero > 0: \n");
     esito_lettura = scanf("%d",
                           &numero_in);
-    acquisizione_errata = esito_lettura != 1 || numero_in <= 0;
+    acquisizione_errata = esito_lettura != 1 || numero_in <= 0 || numero_in > (INT_MAX / 3);
     if (acquisizione_errata)
       printf("Valore fuori range! \n");
     while (getchar() != '\n');
