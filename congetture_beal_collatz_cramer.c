@@ -55,8 +55,7 @@ int main(void)
                           scelta_congettura <= 0;
     if (acquisizione_errata)
       printf("Valore fuori range! \n");
-    while (getchar() != '\n')
-      ;
+    while (getchar() != '\n');
   } while (acquisizione_errata);
 
   /* struttura di selezione della congettura*/
