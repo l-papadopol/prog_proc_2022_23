@@ -35,7 +35,7 @@ int main(void)
   /* dichiarazione delle variabili locali alla funzione */
   int scelta_congettura,   /* input: selezione congettura */
       esito_acquisizione,  /* lavoro: esito della scanf */
-      acquisizione_errata; /* lavoro: esito complessivo dell' acquisizione_errata */
+      acquisizione_errata; /* lavoro: esito complessivo acquisizione_errata */
 
   /* acquisizione scelta */
   do
@@ -91,7 +91,7 @@ int congettura_beal(void)
                     'z'};
   double a_esponentex = 1, /* lavoro: risultato potenza A^x */
        	 b_esponentey = 1, /* lavoro: risultato potenza B^y */
-         c_esponentez = 1; /* lavoro: riusltato potenza C^z */
+         c_esponentez = 1; /* lavoro: risultato potenza C^z */
 
   /* messaggio esplicativo dei parametri da inserire*/
   printf("Equazione A^x + B^y = C^z\n\n");
