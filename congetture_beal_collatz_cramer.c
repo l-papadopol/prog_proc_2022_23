@@ -1,10 +1,10 @@
 /****************************************************************/
-/* Esame PP-PPL-PE_PPro-PLPr-CPro 2022/2023	                */
-/*						                */
+/* Esame PP-PPL-PE_PPro-PLPr-CPro 2022/2023	                    */
+/*						                                                  */
 /* Programma per testare le congetture di Beal, Collatz, Cramèr */
-/*		                                                */
-/* Autori: Papadopol Lucian Ioan 	Matricola: 320648       */
-/* 	       Spaccamiglio Luca		   322270       */
+/*		                                                          */
+/* Autori: Papadopol Lucian Ioan 	Matricola: 320648             */
+/* 	           Spaccamiglio Luca		         322270             */
 /****************************************************************/
 
 /*****************************/
@@ -81,7 +81,7 @@ int congettura_beal(void)
       esito_lettura,       /* lavoro: esito della scanf */
       acquisizione_errata, /* lavoro: esito complessivo dell'acquisizione_errata */
       i_primi = 2,         /* lavoro: indice calcolo fattori primi comuni */
-      i_parametri,         /* lavoro: indice aquisizione parametri*/
+      i_parametri,         /* lavoro: indice acquisizione parametri*/
       n_fprimi = 0;        /* output: esito calcolo fattori primi comuni */
   char scelta[6] = {'A',   /* output: messaggi per input variabili corrispondenti */
                     'B',
@@ -91,7 +91,7 @@ int congettura_beal(void)
                     'z'};
   double a_esponentex = 1, /* lavoro: risultato potenza A^x */
        	 b_esponentey = 1, /* lavoro: risultato potenza B^y */
-	 c_esponentez = 1; /* lavoro: riusltato potenza C^z */
+         c_esponentez = 1; /* lavoro: riusltato potenza C^z */
 
   /* messaggio esplicativo dei parametri da inserire*/
   printf("Equazione A^x + B^y = C^z\n\n");
@@ -168,10 +168,12 @@ int congettura_beal(void)
         par_equ[1] % i_primi == 0 && 
         par_equ[2] % i_primi == 0)
     {
-      par_equ[0] = (int)par_equ[0] / i_primi;
-      par_equ[1] = (int)par_equ[1] / i_primi;
-      par_equ[2] = (int)par_equ[2] / i_primi;
+      par_equ[0] = par_equ[0] / i_primi;
+      par_equ[1] = par_equ[1] / i_primi;
+      par_equ[2] = par_equ[2] / i_primi;
       n_fprimi++;
+      printf("\nTrovato fattore primo comune: %d", 
+                i_primi);
     }
     else
       i_primi++;
@@ -308,13 +310,16 @@ int congettura_cramer(void)
 
   /* indico all'utente l'esito dei vari calcoli */
   delta_np = valori[1] - valori[0];
-  printf("\nDifferenza tra i due numeri primi: %d\n", delta_np);
+  printf("\nDifferenza tra i due numeri primi: %d\n", 
+            delta_np);
 
   log_npnp = pow(log(valori[0]), 2);
-  printf("Quadrato del Logaritmo naturale del primo minore: %0.2lf\n", log_npnp);
+  printf("Quadrato del Logaritmo naturale del primo minore: %0.2lf\n", 
+          log_npnp);
 
   rapporto_np = delta_np / log_npnp;
-  printf("Rapporto tra la differenza dei due primi ed il quadrato del Logaritmo naturale del minore: %0.2lf\n\n", rapporto_np);
+  printf("Rapporto tra la differenza dei due primi ed il quadrato del Logaritmo naturale del minore: %0.2lf\n\n", 
+          rapporto_np);
 
   /* indico all'utente se la congettura è verificata per i parametri inseriti */
   if (rapporto_np <= 1)
