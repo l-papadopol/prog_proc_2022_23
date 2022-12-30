@@ -1,10 +1,10 @@
 /****************************************************************/
-/* Esame PP-PPL-PE_PPro-PLPr-CPro 2022/2023	                    */
-/*						                                                  */
+/* Esame PP-PPL-PE_PPro-PLPr-CPro 2022/2023	                */
+/*			                                        */
 /* Programma per testare le congetture di Beal, Collatz, Cramèr */
-/*		                                                          */
-/* Autori: Papadopol Lucian Ioan 	Matricola: 320648             */
-/* 	           Spaccamiglio Luca		         322270             */
+/*		                                                */
+/* Autori: Papadopol Lucian Ioan 	Matricola: 320648       */
+/* 	   Spaccamiglio Luca		           322270       */
 /****************************************************************/
 
 /*****************************/
@@ -159,7 +159,7 @@ int congettura_beal(void)
     } while (acquisizione_errata);
   }
 
-  /* calcolo quanti primi vi sono in comune tra a, b, c*/
+  /* calcolare quanti primi vi sono in comune tra a, b, c*/
   while (par_equ[0] >= i_primi && 
          par_equ[1] >= i_primi && 
          par_equ[2] >= i_primi)
@@ -179,7 +179,7 @@ int congettura_beal(void)
       i_primi++;
   }
 
-  /* avviso l'utente dell'esito */
+  /* avvisare l'utente dell'esito */
   if (a_esponentex + b_esponentey == c_esponentez)
   {
     printf("\nEquazione e congettura verificata per i parametri inseriti.\n");
@@ -189,7 +189,7 @@ int congettura_beal(void)
     printf("\nEquazione e congettura non verificata per i parametri inseriti.\n");
   }
 
-  /* indico all'utente se vi sono fattori primi in comune */
+  /* indicare all'utente se vi sono fattori primi in comune */
   if (n_fprimi > 0)
 	  printf("Vi è almeno un fattore primo in comune fra A,B e C.\n");
   else
@@ -219,7 +219,7 @@ int congettura_collatz(void)
     while (getchar() != '\n');
   } while (acquisizione_errata);
 
-  /* calcolo il valore del numero fino al raggiungimento del valore 1 */
+  /* calcolare il valore del numero fino al raggiungimento del valore 1 */
   printf("Numeri generati:\n");
   do
   {
@@ -232,7 +232,7 @@ int congettura_collatz(void)
     printf("\n %d", numero_in);
   } while (numero_in != 1);
 
-  /* avviso l'utente dell'esito */
+  /* avvisare l'utente dell'esito */
   printf("\nLa congettura è verificata. Ho raggiunto n = 1\n\n");
   return (0);
 }
@@ -308,7 +308,7 @@ int congettura_cramer(void)
     } while (acquisizione_errata);
   }
 
-  /* indico all'utente l'esito dei vari calcoli */
+  /* indicare all'utente l'esito dei vari calcoli */
   delta_np = valori[1] - valori[0];
   printf("\nDifferenza tra i due numeri primi: %d\n", 
             delta_np);
@@ -321,7 +321,7 @@ int congettura_cramer(void)
   printf("Rapporto tra la differenza dei due primi ed il quadrato del Logaritmo naturale del minore: %0.2lf\n\n", 
           rapporto_np);
 
-  /* indico all'utente se la congettura è verificata per i parametri inseriti */
+  /* indicare all'utente se la congettura è verificata per i parametri inseriti */
   if (rapporto_np <= 1)
     printf("La congettura è verificata per i parametri inseriti\n\n");
   else
